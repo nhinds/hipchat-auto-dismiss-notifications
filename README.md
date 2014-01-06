@@ -1,15 +1,13 @@
 # Hipchat Auto Dismiss Notifications
 
-Hipchat uses window.Notification if available and only closes the notification
-on click. This changes that behavior to use webkitNotifications which auto
-closes the notification after 5 seconds.
-
-Apparently I'm only seeing this sticky notifications on Windows though.
-
-Get it in the [chrome store](https://chrome.google.com/webstore/detail/hipchat-auto-dismiss-noti/nmindifmgoccchgnkojbjoppdpcdblim)
+Hipchat uses `window.Notification` if available and attempts to call the
+`window.Notification.cancel` method when the tab is focussed. This method
+does not exist in chrome, which has a `close` method instead, resulting in
+an error "Uncaught TypeError: Object #<Notification> has no method 'cancel'".
+This extension patches the Notification object to alias `cancel` to `close`.
 
 ## Copyright
 
-Copyright (c) 2013 Darrin Holst. See LICENSE for details.
+Copyright (c) 2013 Darrin Holst and Nicholas Hinds. See LICENSE for details.
 
 
